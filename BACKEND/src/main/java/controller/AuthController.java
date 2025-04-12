@@ -55,4 +55,19 @@ public class AuthController {
 
         return ResponseEntity.ok(tokenGenerator.createToken(authentication));
     }
+
+    // Login a user and accepts 'LoginDTO' object
+    // DaoAuthenticationProvider authenticates the user
+    @PostMapping("/login")
+    public ResponseEntity login(@RequestBody LoginDTO loginDTO) {
+        Authentication authentication = daoAuthenticationProvider.authenticate(UsernamePasswordAuthenticationToken.unauthenticated(loginDTO.getUsername(), loginDTO.getPassword()));
+        System.out.println(authentication);
+        Optional<User> existingUser = userRepository.findByUsername(loginDTO.getUsername());
+        if(existingUser.isPresent()) {
+            if (existingUser.get().isDeleted() == true) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Account deleted");
+            }
+        }
+        return ResponseEntity.ok(tokenGenerator.createToken(authentication));
+    }
 }
