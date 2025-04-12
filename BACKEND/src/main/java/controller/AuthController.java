@@ -70,4 +70,13 @@ public class AuthController {
         }
         return ResponseEntity.ok(tokenGenerator.createToken(authentication));
     }
+
+    @PostMapping("/token")
+    public ResponseEntity token(@RequestBody TokenDTO tokenDTO) {
+        Authentication authentication = refreshTokenAuthProvider.authenticate(new BearerTokenAuthenticationToken(tokenDTO.getRefreshToken()));
+        Jwt jwt = (Jwt) authentication.getCredentials();
+        // check if present in db and not revoked, etc
+
+        return ResponseEntity.ok(tokenGenerator.createToken(authentication));
+    }
 }
