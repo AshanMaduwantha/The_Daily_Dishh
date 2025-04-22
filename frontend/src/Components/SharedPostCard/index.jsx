@@ -30,3 +30,101 @@ function SharedPostCard({ post, fetchType }) {
     setCaption(captionEdit);
     setEditable(false);
   };
+
+  return (
+    <div className="container p-2 card mb-4 post-card">
+      <div className="card-body">
+        <div className="row">
+          <div className="col-10">
+            {editable ? (
+              <>
+                <input
+                  type="text"
+                  className="form-control mb-3"
+                  value={captionEdit}
+                  onChange={(e) => setCaption(e.target.value)}
+                />
+              </>
+            ) : (
+              <>
+                <p>{post.caption}</p>
+              </>
+            )}
+          </div>
+          <div className="col-2">
+            {user.userId === post.userId && (
+              <div className="col-12">
+                {editable && (
+                  <>
+                    <GiCancel
+                      className="react-icons me-3"
+                      size={25}
+                      onClick={() => {
+                        setEditable(false);
+                      }}
+                    />
+                    <IoCheckmarkDoneSharp
+                      className="react-icons"
+                      size={25}
+                      onClick={() => {
+                        handleSubmit();
+                      }}
+                    />
+                  </>
+                )}
+                {!editable && (
+                  <>
+                    <AiFillEdit
+                      className="react-icons me-3"
+                      size={25}
+                      onClick={() => {
+                        setEditable(true);
+                      }}
+                    />
+                    <AiFillDelete
+                      className="react-icons"
+                      size={25}
+                      onClick={() => {
+                        dispatch(deletePostShareById(post.id));
+                      }}
+                    />
+                  </>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+
+        <hr />
+        <div className="row">
+          <div className="col-4">
+            <img
+              src={post.post?.profileImage ? post.post.profileImage : UserImage}
+              className="post-profile-image img-fluid me-3"
+              alt="Profile"
+            />
+            <span className="text-left">{post.post?.username}</span>
+          </div>
+        </div>
+        <div className="row mt-2">
+          <p>{post.post?.caption}</p>
+        </div>
+        <div className="row">
+        <Slider>
+          {post.post?.imgLink && post.post.imgLink.length && post.post.imgLink.map((imgLink) => (
+            <div key={imgLink}>
+              <img
+                src={imgLink}
+                className="card-img-top img-fluid"
+                alt="postImages"
+              />
+            </div>
+          ))}
+        </Slider>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default SharedPostCard;
