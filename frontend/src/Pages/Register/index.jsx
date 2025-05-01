@@ -22,7 +22,7 @@ function Register() {
     <div
       className="d-flex justify-content-center align-items-center min-vh-100"
       style={{
-        backgroundImage: `url(${LoginImage})`,
+        backgroundImage: `url()`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
