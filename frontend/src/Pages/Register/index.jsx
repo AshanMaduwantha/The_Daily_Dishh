@@ -59,10 +59,19 @@ function Register() {
             />
           </div>
           <div className="d-grid mb-3">
-            <button type="submit" className="btn btn-success rounded-pill py-2">
-              REGISTER
-            </button>
+          <button
+            type="submit"
+            className="btn rounded-pill py-2"
+            style={{ backgroundColor: "#fd7e14", borderColor: "#fd7e14", color: "#fff" }}
+          > 
+            REGISTER
+          </button>
           </div>
+          <div className="text-center">
+                    <Link to="/forgotpassword" className="text-decoration-none text-primary">
+                      Forgot Password?
+                    </Link>
+                  </div>
            <div className="text-center">
                     <Link to="/forgotpassword" className="text-decoration-none text-primary">
                       Alreday have an account? Login
