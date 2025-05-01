@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate,useLocation } from "react-router-dom";
 import { getUser } from "../../app/actions/user.actions";
 import { logout } from "../../app/slices/user.slice";
 import Profile from "../../Pages/Profile";
@@ -15,6 +15,8 @@ function Navbar() {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const location = useLocation();
+  const currentPath = location.pathname;
   
   function openModal() {
     setModalIsOpen(true);
@@ -34,7 +36,7 @@ function Navbar() {
       }
     }
 
-    if (!sessionStorage.getItem("Authorization")) {
+    if (currentPath !== "/signup" && !sessionStorage.getItem("Authorization")) {
       navigate("/login");
     }
   }, [dispatch, user.loginStatus, navigate]);
@@ -178,7 +180,6 @@ function Navbar() {
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         className="modal-dialog modal-lg mx-auto mt-5"
-        overlayClassName="modal-backdrop show"
         style={{
           overlay: {
             backgroundColor: "rgba(0, 0, 0, 0.5)",
