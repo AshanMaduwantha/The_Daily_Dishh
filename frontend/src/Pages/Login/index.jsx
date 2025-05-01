@@ -59,14 +59,23 @@ function Login() {
             />
           </div>
           <div className="d-grid mb-3">
-            <button type="submit" className="btn btn-primary rounded-pill py-2">
-              LOGIN
-            </button>
+          <button
+            type="submit"
+            className="btn rounded-pill py-2"
+            style={{ backgroundColor: "#fd7e14", borderColor: "#fd7e14", color: "#fff" }}
+          > 
+            LOGIN
+          </button>
           </div>
         </form>
         <div className="text-center">
           <Link to="/forgotpassword" className="text-decoration-none text-primary">
             Forgot Password?
+          </Link>
+        </div>
+        <div className="text-center">
+          <Link to="/forgotpassword" className="text-decoration-none text-primary">
+            Don't have an account? Sign Up
           </Link>
         </div>
       </div>
