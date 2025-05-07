@@ -51,6 +51,7 @@ function User() {
                     role="tab"
                     aria-controls="posts-tab-pane"
                     aria-selected="true"
+                    style={{ backgroundColor: "#fd7e14", borderColor: "#fd7e14", color: "#fff" }}
                   >
                     MY POSTS
                   </button>
@@ -65,6 +66,7 @@ function User() {
                     role="tab"
                     aria-controls="shared-tab-pane"
                     aria-selected="false"
+                    style={{ backgroundColor: "#fd7e14", borderColor: "#fd7e14", color: "#fff" }}
                   >
                     SHARED POSTS
                   </button>
