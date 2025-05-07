@@ -4,18 +4,37 @@ import UserImage from "../../assets/user.jpeg";
 
 function UserProfile() {
   const user = useSelector((state) => state.user.user);
+  
   return (
-    <div className="card post-card">
-      <div className="card-body text-center">
+    <div className="text-center">
+      <div className="position-relative mb-4">
         <img
-          className="img-circle user-image image-fluid mb-3"
+          className="rounded-circle shadow-sm border border-2 border-light"
           src={user?.profileImage ? user.profileImage : UserImage}
-          alt="ss"
+          alt="Profile"
+          style={{ width: "120px", height: "120px", objectFit: "cover" }}
         />
-        <h5 className="card-title">{user?.username}</h5>
-        <p className="card-title">{user?.email}</p>
-        <p className="card-title">{user?.contactNumber}</p>
-
+      </div>
+      
+      <h4 className="fw-bold mb-1">{user?.username}</h4>
+      
+      <div className="text-muted mb-3">
+        <p className="mb-1">
+          <i className="bi bi-envelope me-2"></i>
+          {user?.email}
+        </p>
+        {user?.contactNumber && (
+          <p className="mb-0">
+            <i className="bi bi-telephone me-2"></i>
+            {user?.contactNumber}
+          </p>
+        )}
+      </div>
+      
+      <hr className="my-4" />
+      
+      <div className="d-grid gap-2">
+        <button className="btn btn-outline-primary">Edit Profile</button>
       </div>
     </div>
   );
