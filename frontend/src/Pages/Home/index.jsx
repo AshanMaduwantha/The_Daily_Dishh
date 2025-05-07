@@ -7,23 +7,24 @@ import NewUsersSuggest from "../../Components/NewUsersSuggest";
 function Home() {
   const dispatch = useDispatch();
   const post = useSelector((state) => state.post);
+  
   useEffect(() => {
     dispatch(getPosts());
   }, [dispatch]);
+  
   return (
-    <div className="container mt-5 mb-5 row">
-      <div className="col-md-3"></div>
-      <div className="col-md-8">
-        <div className="row">
-          <div className="col-12">
-            <NewUsersSuggest />
-          </div>
-          <div className="col-12 mt-3">
-            <Posts posts={post.posts} fetchType="GET_ALL_POSTS" />
-          </div>
+    <div className="container mt-5 mb-5 mt-5">
+      <div className="row">
+        <div className="col-md-4">
+          <NewUsersSuggest />
+        </div>
+        <div className="col-md-6 mt-5">
+          <Posts posts={post.posts} fetchType="GET_ALL_POSTS" />
+        </div>
+        <div className="col-md-2">
+          {/* You can add additional components here in the future */}
         </div>
       </div>
-      <div className="col-md-2"></div>
     </div>
   );
 }

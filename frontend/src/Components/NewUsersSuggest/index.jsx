@@ -28,7 +28,7 @@ function NewUsersSuggest() {
   };
 
   return (
-    <div className="user-suggestions-container mb-4">
+    <div className="user-suggestions-container mb-4 mt-5">
       <div className="card border-0 suggestion-card">
         {/* Modern Card Header */}
         <div className="card-header border-0 bg-white pb-0">
