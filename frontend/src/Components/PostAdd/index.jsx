@@ -97,7 +97,7 @@ function PostAdd() {
             />
           </div>
 
-          <button type="submit" className="btn btn-primary px-4 rounded-pill">
+          <button type="submit" className="btn btn-primary px-4 rounded-pill" style={{ backgroundColor: "#fd7e14", borderColor: "#fd7e14", color: "#fff" }}>
             PUBLISH
           </button>
         </form>

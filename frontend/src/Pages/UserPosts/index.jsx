@@ -36,6 +36,7 @@ function UserPosts() {
                 role="tab"
                 aria-controls="nav-home"
                 aria-selected="true"
+                
               >
                 POSTS
               </button>
