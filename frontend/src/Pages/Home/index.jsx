@@ -3,6 +3,7 @@ import Posts from "../../Components/Posts";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts } from "../../app/actions/post.actions";
 import NewUsersSuggest from "../../Components/NewUsersSuggest";
+import Minichat from "../../Components/Messaging/MiniChat";
 
 function Home() {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ function Home() {
         <div className="col-md-4">
           <NewUsersSuggest />
         </div>
+        
         <div className="col-md-6 mt-5">
           <Posts posts={post.posts} fetchType="GET_ALL_POSTS" />
         </div>
@@ -25,6 +27,9 @@ function Home() {
           {/* You can add additional components here in the future */}
         </div>
       </div>
+      <div className="mini-chat-container">
+                  <Minichat />
+                </div>
     </div>
   );
 }

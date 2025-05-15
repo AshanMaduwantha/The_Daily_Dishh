@@ -63,13 +63,13 @@ function PostAdd() {
     <div className="container mb-3 card create-card shadow-sm border-0 rounded-3 bg-white">
       <div className="card-body p-4">
         <form onSubmit={handleSubmit}>
-          <h5 className="fw-bold mb-3">Share your thoughts</h5>
+          <h5 className="fw-bold mb-3">What's on your mind?</h5>
           <div className="mt-2 mb-3">
             <label className="form-label"></label>
             <input
               type="text"
               className="form-control bg-light border-0"
-              placeholder="What's on your mind?"
+              placeholder="What do you want to talk about?"
               value={caption}
               onChange={(e) => setCaption(e.target.value)}
             />
