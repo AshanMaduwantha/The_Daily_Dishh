@@ -10,7 +10,7 @@ function PostAdd() {
   const fileInputRef = useRef(null);
 
   const [caption, setCaption] = React.useState("");
-  const [imgLink, setImgLink] = React.useState("");
+  const [imgLink, setImgLink] = React.useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,29 +22,28 @@ function PostAdd() {
     await dispatch(savePost(post));
     await dispatch(getPostsByUserId(user.userId));
     setCaption("");
-    setImgLink("");
+    setImgLink([]);
     fileInputRef.current.value = "";
-
   };
 
   const uploadImage = (e) => {
     const files = e.target.files;
-  
+
     if (files.length === 0) {
       alert("Please upload at least one image!");
       return;
     }
-  
+
     // upload up to 4 images
     const maxImages = 4;
     const numImages = Math.min(maxImages, files.length);
-  
+
     for (let i = 0; i < numImages; i++) {
       const file = files[i];
       const storageRef = ref(storage, `/posts/${file.name}`);
-  
+
       const uploadTask = uploadBytesResumable(storageRef, file);
-  
+
       uploadTask.on(
         "state_changed",
         (snapshot) => {
@@ -59,43 +58,46 @@ function PostAdd() {
       );
     }
   };
-  
-  
+
   return (
-    <div className="container mb-3 card create-card">
-      <div className="card-body">
+    <div className="container mb-3 card create-card shadow-sm border-0 rounded-3 bg-white">
+      <div className="card-body p-4">
         <form onSubmit={handleSubmit}>
-          <h1 className="mt-2">Share your thoughts</h1>
+          <h5 className="fw-bold mb-3">Share your thoughts</h5>
           <div className="mt-2 mb-3">
             <label className="form-label"></label>
             <input
               type="text"
-              className="form-control"
+              className="form-control bg-light border-0"
               placeholder="What's on your mind?"
               value={caption}
               onChange={(e) => setCaption(e.target.value)}
             />
           </div>
+          <div className="mb-3 text-muted small">
             <i>*maximum 4 images</i>
+          </div>
           <div className="mb-3">
-            {imgLink && (
-              <img
-                src={imgLink}
-                className="img-fluid me-3"
-                alt="Profile"
-              />
-            )}
+            {imgLink.length > 0 &&
+              imgLink.map((link, index) => (
+                <img
+                  key={index}
+                  src={link}
+                  className="img-fluid me-3 rounded-3 mb-2"
+                  alt={`Uploaded ${index + 1}`}
+                />
+              ))}
 
             <input
               type="file"
-              className="form-control"
-              onChange={(e) => uploadImage(e)}
+              className="form-control border-0 bg-light"
+              onChange={uploadImage}
               ref={fileInputRef}
-              multiple 
+              multiple
             />
           </div>
 
-          <button type="submit" className="btn btn-outline-primary">
+          <button type="submit" className="btn btn-primary px-4 rounded-pill" style={{ backgroundColor: "#fd7e14", borderColor: "#fd7e14", color: "#fff" }}>
             PUBLISH
           </button>
         </form>
