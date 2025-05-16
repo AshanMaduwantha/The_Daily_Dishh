@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate,useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { getUser } from "../../app/actions/user.actions";
 import { logout } from "../../app/slices/user.slice";
 import Profile from "../../Pages/Profile";
@@ -17,7 +17,10 @@ function Navbar() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const location = useLocation();
   const currentPath = location.pathname;
-  
+
+  // Search state
+  const [searchQuery, setSearchQuery] = useState("");
+
   function openModal() {
     setModalIsOpen(true);
   }
@@ -25,6 +28,16 @@ function Navbar() {
   function closeModal() {
     setModalIsOpen(false);
   }
+
+  // Handle Search button click or Enter key press
+  const handleSearch = () => {
+    if (searchQuery.trim() !== "") {
+      navigate(`/?search=${encodeURIComponent(searchQuery.trim())}`);
+    } else {
+      navigate("/");
+    }
+  };
+
 
   useEffect(() => {
     if (
@@ -39,7 +52,7 @@ function Navbar() {
     if (currentPath !== "/signup" && !sessionStorage.getItem("Authorization")) {
       navigate("/login");
     }
-  }, [dispatch, user.loginStatus, navigate]);
+  }, [dispatch, user.loginStatus, navigate, currentPath]);
 
   return (
     <div>
@@ -68,9 +81,18 @@ function Navbar() {
           {/* Navbar Content */}
           <div className="collapse navbar-collapse" id="navbarContent">
             {/* Search Bar */}
-            <div className="d-flex mx-auto my-2 my-lg-0 position-relative" style={{ maxWidth: "550px", width: "100%" }}>
+            <div
+              className="d-flex mx-auto my-2 my-lg-0 position-relative"
+              style={{ maxWidth: "550px", width: "100%" }}
+            >
               <div className="input-group w-100">
-                <span className="input-group-text bg-light border-end-0" style={{ borderTopLeftRadius: "20px", borderBottomLeftRadius: "20px" }}>
+                <span
+                  className="input-group-text bg-light border-end-0"
+                  style={{
+                    borderTopLeftRadius: "20px",
+                    borderBottomLeftRadius: "20px",
+                  }}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -87,17 +109,37 @@ function Navbar() {
                   className="form-control bg-light border-start-0"
                   placeholder="Search recipes, dishes, ingredients..."
                   aria-label="Search"
-                  style={{ borderTopRightRadius: "20px", borderBottomRightRadius: "20px" }}
+                  value={searchQuery}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    setSearchQuery(val);
+
+                    if (val.trim() === "") {
+                      // If input cleared, navigate back to home without search
+                      navigate("/");
+                    }
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") handleSearch();
+                  }}
+                  style={{
+                    borderTopRightRadius: "20px",
+                    borderBottomRightRadius: "20px",
+                  }}
                 />
-                <button className="btn btn-warning position-absolute end-0 d-none d-md-block" 
-                  style={{ 
-                    borderTopRightRadius: "20px", 
+
+                <button
+                  className="btn btn-warning position-absolute end-0 d-none d-md-block"
+                  style={{
+                    borderTopRightRadius: "20px",
                     borderBottomRightRadius: "20px",
                     backgroundColor: "#fd7e14",
                     color: "white",
                     zIndex: "5",
-                    padding: "0.375rem 1rem"
-                  }}>
+                    padding: "0.375rem 1rem",
+                  }}
+                  onClick={handleSearch}
+                >
                   Search
                 </button>
               </div>
@@ -186,7 +228,7 @@ function Navbar() {
             display: "flex",
             alignItems: "flex-start",
             justifyContent: "center",
-            zIndex: 1050
+            zIndex: 1050,
           },
           content: {
             position: "relative",
@@ -195,8 +237,8 @@ function Navbar() {
             overflow: "visible",
             borderRadius: 0,
             outline: 0,
-            padding: 0
-          }
+            padding: 0,
+          },
         }}
       >
         <div className="modal-content">
