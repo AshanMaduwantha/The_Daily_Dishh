@@ -103,7 +103,7 @@ function Login() {
           </Link>
         </div>
         <div className="text-center">
-          <Link to="/forgotpassword" className="text-decoration-none text-primary">
+          <Link to="/signup" className="text-decoration-none text-primary">
             Don't have an account? Sign Up
           </Link>
         </div>
