@@ -42,5 +42,10 @@ public class PostController {
     public ResponseEntity<?> deletePostById(@PathVariable String id){
         return postService.deletePostById(id);
     }
+    @GetMapping("/search")
+    public ResponseEntity<?> searchPosts(@RequestParam String keyword) {
+        return postService.searchPosts(keyword);
+    }
+
 }
 
